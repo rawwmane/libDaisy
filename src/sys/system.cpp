@@ -122,6 +122,10 @@ extern "C"
     }
 
     // TODO: Add some real handling to the HardFaultHandler
+    // saveinc_sampler 2026-05-13: weak so the app can override with a
+    // panic-to-BACKUP_SRAM + reboot handler. Default libDaisy behaviour
+    // hits BKPT (useful with debugger, hangs forever without one).
+    __attribute__((weak))
     void HardFault_Handler()
     {
         // Grab an instance of the SCB so we can `p/x *scb` from the debugger
